@@ -29,8 +29,10 @@ enyo.kind({
 			name: "list", kind: "List", multiSelect: false, fit: true, count:0, onSetupItem: "setupItem", 
 				components: [
 					{name: "item", style:'height:30px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', components: [
-						{name: "age", style:'width:20%; float:left; font-size:1.5em'},
-						{name: "name", style:'width:80%; float:left; font-size:1.5em'}
+						{name: "age", style:'width:17%; float:left; font-size:1.5em'},
+						{name: "name", style:'width:80%; float:left; font-size:1.5em'},
+						{kind: "onyx.Button", content: "X", name:'btnDelete', ontap:'btnDeleteTapped',style:'width:3%; float:left;'}
+
 					]}
 				]
 		},	 
@@ -94,6 +96,31 @@ enyo.kind({
 			this.$.list.reset();
 		}
 		console.log(this.filtered);
+	},
+	refreshList: function() {
+		if (this.filter) {
+			this.filtered = this.generateFilteredData(this.filter);
+			this.$.list.setCount(this.filtered.length);
+		} else {
+			this.$.list.setCount(this.db.length);
+		}
+		this.$.list.refresh();
+	},
+	removeItem: function(inIndex) {
+		this._removeDbItem(inIndex);
+		//Single item deleted from listView but must delete DB reference too.
+		this.$.list.getSelection().remove(inIndex);
+		this.refreshList();
+	},
+	_removeDbItem: function(inIndex) {
+		var i = this.filter ? this.filtered[inIndex].dbIndex : inIndex;
+		this.db.splice(i, 1);
+	},
+	btnDeleteTapped : function(inSender, inEvent) {
+		//Single item deleted
+		console.log(inEvent.index + ' deleted');	
+		this.removeItem(inEvent.index);
+		return true;
 	},
 	generateFilteredData : function(inFilter){
 		var re = new RegExp("^" + inFilter, "i");

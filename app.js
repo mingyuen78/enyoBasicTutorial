@@ -16,8 +16,8 @@ enyo.kind({
 		{   name: "list", kind: "List", count: 20000, multiSelect: false, fit: true, onSetupItem: "setupItem", 
 				components: [
 					{name: "item", style:'height:30px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', components: [
-						{name: "index", style:'width:25%; float:left; font-size:1em'},
-						{name: "name", style:'width:75%; float:left; font-size:1em;text-indent:15px'}
+						{name: "index", style:'width:20%; float:left; font-size:1em'},
+						{name: "name", style:'width:75%; float:left; font-size:1em;text-indent:15px'},
 					]}
 				]
 		},		
