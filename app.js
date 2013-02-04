@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "enyo.tutorial.app",
 	kind: "FittableRows", 
-	classes: "enyo-fit", 
+	classes: "enyo-fit copypasteProtect", 
 	components: [
 		// ToolBar Components.
 		{   name:'headerToolbar', kind: "onyx.Toolbar",
@@ -16,11 +16,10 @@ enyo.kind({
 		{   name: "list", kind: "List", count: 20000, multiSelect: false, fit: true, onSetupItem: "setupItem", 
 				components: [
 					{name: "item", style:'height:50px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', components: [
-						{kind:"Image", scale:'auto', src:'icon.png', style:'width:50px;float:left;', fit:true},
-						{name: "index", style:'float:left; font-size:1em;padding:10px',  fit:true},
-						{name: "name", style:'float:left; font-size:1em;padding:10px',  fit:true},
+						{kind:"Image", scale:'auto', src:'icon.png', style:'width:50px;float:left;', fit:true, touch:false},
+						{name: "index", style:'float:left; font-size:1em;padding:10px',  fit:true, touch:false},
+						{name: "name", style:'float:left; font-size:1em;padding:10px',  fit:true, touch:false},
 						{kind: "onyx.Button", content: "X", name:"X", ontap:'btnRowTapped', style:'float:right',fit:true},
-						{kind: "onyx.Button", content: "Y", name:"Y", ontap:'btnRowTapped', style:'float:right',fit:true},
 					]}
 				]
 		},		

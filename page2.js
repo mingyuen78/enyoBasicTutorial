@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "enyo.tutorial.page2",
 	kind: "FittableRows", 
-	classes: "enyo-fit", 
+	classes: "enyo-fit copypasteProtect", 
 	components: [
 		{
 			kind: "onyx.Toolbar",
