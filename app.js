@@ -1,19 +1,20 @@
 enyo.kind({
 	name: "enyo.tutorial.app",
 	kind: "FittableRows", 
-	classes: "enyo-fit copypasteProtect", 
+	classes: "enyo-fit enyo-unselectable",
+	// In Enyo Almost anything MUST PROVIDE exact height to compute accurate listview and footer.
 	components: [
 		// ToolBar Components.
 		{   name:'headerToolbar', kind: "onyx.Toolbar",
-			layoutKind: "FittableColumnsLayout", 
+			layoutKind: "FittableColumnsLayout", style: "height: 55px;",
 				components: [
-					{kind: "onyx.Button", content: "Slide", name:'btnSlider', ontap:'btnSliderTapped'},
-					{content: "HEADER", fit:true, style:'text-align:center'},
-					{kind: "onyx.Button", content: "Next", name:'btnNext', ontap:'btnNextTapped'},
+					{kind: "onyx.Button",content: "Slide", name:'btnSlider', ontap:'btnSliderTapped' , style:'width:80px'},
+					{content:'Header',fit:true, style:'text-align:center;'},
+					{kind: "onyx.Button",content: "Next", name:'btnNext', ontap:'btnNextTapped', style:'width:80px'},
 				]
 		},
 		// List Components.
-		{   name: "list", kind: "List", count: 20000, multiSelect: false, fit: true, onSetupItem: "setupItem", 
+		{   name: "list", kind: "List", count: 20000, multiSelect: false, fit:true, onSetupItem: "setupItem", 
 				components: [
 					{name: "item", style:'height:50px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', components: [
 						{kind:"Image", scale:'auto', src:'icon.png', style:'width:50px;float:left;', fit:true, touch:false},
@@ -22,7 +23,14 @@ enyo.kind({
 						{kind: "onyx.Button", content: "X", name:"X", ontap:'btnRowTapped', style:'float:right',fit:true},
 					]}
 				]
-		},		
+		},
+		{
+			kind: "onyx.Toolbar",
+			layoutKind: "FittableColumnsLayout", style: "height: 45px;",
+				components: [
+					{content: "Footer", fit:true, style:'text-align:center;' },
+				]
+		}		
 	],
 	names:[],
 	setupItem: function(inSender, inEvent) {

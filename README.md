@@ -17,3 +17,5 @@ Tutorials Cover - my own observation on :-
 3. How components and kinds are loaded
 4. How custom styled are programmed
 5. How filter search is conducted
+
+Note Important: In Enyo Almost anything MUST PROVIDE exact height to compute accurate listview and toolbar, any div along the row.

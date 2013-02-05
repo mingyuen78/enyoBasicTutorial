@@ -1,11 +1,11 @@
 enyo.kind({
 	name: "enyo.tutorial.page2",
 	kind: "FittableRows", 
-	classes: "enyo-fit copypasteProtect", 
+	classes: "enyo-fit enyo-unselectable",
 	components: [
 		{
 			kind: "onyx.Toolbar",
-			layoutKind: "FittableColumnsLayout", 
+			layoutKind: "FittableColumnsLayout", style: "height: 50px;",			
 				components: [
 					{kind: "onyx.Button", content: "Prev", name:'btnPrev', ontap:'btnPrevTapped'},
 					{content: "Filtered Search", fit:true, style:'text-align:center'},
@@ -13,11 +13,12 @@ enyo.kind({
 		},
 		{
 			kind: "FittableColumns", 
-			style:'margin:10px',
+			style:'margin:10px;height:48px;',
 				components: [
 					{
 						name:'searchInput', 
 						kind: "onyx.Input", 
+						layoutKind: "FittableColumnsLayout", 
 						placeholder: "Search text here...", 
 						fit:true, 
 						style:'padding:10px;font-size:1.2em;', 
@@ -33,11 +34,17 @@ enyo.kind({
 								{name: "age", style:'font-size:1em;float:left;padding:5px;', fit:true},
 								{name: "name", style:'font-size:1em;float:left;padding:5px;', fit:true },
 								{kind: "onyx.Button", content: "X", style:'text-align:center;height:30px;float:right;', name:'btnDelete', ontap:'btnDeleteTapped', fit:true}
-								
 							]
 					}
 				]
-		},	 
+		},
+		{
+			kind: "onyx.Toolbar",
+			layoutKind: "FittableColumnsLayout", style: "height: 50px;",
+				components: [
+					{content: "Footer", fit:true, style:'text-align:center;' },
+				]
+		}	
 	],
 	// Sample Data in form of Array; the real thing will have some callback/ajax that returns actual data
 	db: [
