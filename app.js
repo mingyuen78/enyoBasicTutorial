@@ -1,23 +1,25 @@
 enyo.kind({
 	name: "enyo.tutorial.app",
 	kind: "FittableRows", 
-	classes: "enyo-fit", 
+	classes: "enyo-fit copypasteProtect", 
 	components: [
 		// ToolBar Components.
 		{   name:'headerToolbar', kind: "onyx.Toolbar",
 			layoutKind: "FittableColumnsLayout", 
 				components: [
-					{kind: "onyx.Button", content: "Open Slider", name:'btnSlider', ontap:'btnSliderTapped'},
-					{content: "This is a HEADER Text", fit:true, style:'text-align:center'},
-					{kind: "onyx.Button", content: "Next Page", name:'btnNext', ontap:'btnNextTapped'},
+					{kind: "onyx.Button", content: "Slide", name:'btnSlider', ontap:'btnSliderTapped'},
+					{content: "HEADER", fit:true, style:'text-align:center'},
+					{kind: "onyx.Button", content: "Next", name:'btnNext', ontap:'btnNextTapped'},
 				]
 		},
 		// List Components.
 		{   name: "list", kind: "List", count: 20000, multiSelect: false, fit: true, onSetupItem: "setupItem", 
 				components: [
-					{name: "item", style:'height:30px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', components: [
-						{name: "index", style:'width:20%; float:left; font-size:1.5em'},
-						{name: "name", style:'width:80%; float:left; font-size:1.5em'}
+					{name: "item", style:'height:50px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', components: [
+						{kind:"Image", scale:'auto', src:'icon.png', style:'width:50px;float:left;', fit:true, touch:false},
+						{name: "index", style:'float:left; font-size:1em;padding:10px',  fit:true, touch:false},
+						{name: "name", style:'float:left; font-size:1em;padding:10px',  fit:true, touch:false},
+						{kind: "onyx.Button", content: "X", name:"X", ontap:'btnRowTapped', style:'float:right',fit:true},
 					]}
 				]
 		},		
@@ -28,14 +30,17 @@ enyo.kind({
 			var i = inEvent.index;
 			// make some mock data if we have none for this row
 			if (!this.names[i]) {
-				this.names[i] = Math.random(999);
+				this.names[i] = Math.random(999).toFixed(5);
 			}
 			var n = this.names[i];
-			var ni = ("00000000" + i).slice(-7);
+			var ni = ("00000" + i).slice(-7);
 			// apply selection style if inSender (the list) indicates that this row is selected.
 			this.$.item.addRemoveClass("list-sample-selected", inSender.isSelected(i));
 			this.$.name.setContent(n);
 			this.$.index.setContent(ni);
+	},
+	btnRowTapped : function(inSender,inEvent){
+		console.log(inSender.name + " is tapped");
 	},
 	listItemTapped : function(inSender, inEvent) {
 		console.log(inEvent.index + ' tapped');

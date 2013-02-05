@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "enyo.tutorial.page2",
 	kind: "FittableRows", 
-	classes: "enyo-fit", 
+	classes: "enyo-fit copypasteProtect", 
 	components: [
 		{
 			kind: "onyx.Toolbar",
@@ -28,10 +28,13 @@ enyo.kind({
 		{   
 			name: "list", kind: "List", multiSelect: false, fit: true, count:0, onSetupItem: "setupItem", 
 				components: [
-					{name: "item", style:'height:30px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', components: [
-						{name: "age", style:'width:20%; float:left; font-size:1.5em'},
-						{name: "name", style:'width:80%; float:left; font-size:1.5em'}
-					]}
+					{name: "item", style:'height:50px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', layoutKind: "FittableColumnsLayout", 
+							components: [
+								{name: "age", style:'font-size:1.5em;float:left;width:20%'},
+								{name: "name", style:'font-size:1.5em;float:left;width:70%' },
+								{kind: "onyx.Button", content: "X", style:'width:10%;text-align:center;height:30px;float:left;', name:'btnDelete', ontap:'btnDeleteTapped'}
+							]
+					}
 				]
 		},	 
 	],
@@ -94,6 +97,31 @@ enyo.kind({
 			this.$.list.reset();
 		}
 		console.log(this.filtered);
+	},
+	refreshList: function() {
+		if (this.filter) {
+			this.filtered = this.generateFilteredData(this.filter);
+			this.$.list.setCount(this.filtered.length);
+		} else {
+			this.$.list.setCount(this.db.length);
+		}
+		this.$.list.refresh();
+	},
+	removeItem: function(inIndex) {
+		this._removeDbItem(inIndex);
+		//Single item deleted from listView but must delete DB reference too.
+		this.$.list.getSelection().remove(inIndex);
+		this.refreshList();
+	},
+	_removeDbItem: function(inIndex) {
+		var i = this.filter ? this.filtered[inIndex].dbIndex : inIndex;
+		this.db.splice(i, 1);
+	},
+	btnDeleteTapped : function(inSender, inEvent) {
+		//Single item deleted
+		console.log(inEvent.index + ' deleted');	
+		this.removeItem(inEvent.index);
+		return true;
 	},
 	generateFilteredData : function(inFilter){
 		var re = new RegExp("^" + inFilter, "i");
