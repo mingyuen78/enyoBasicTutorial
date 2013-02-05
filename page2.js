@@ -28,12 +28,13 @@ enyo.kind({
 		{   
 			name: "list", kind: "List", multiSelect: false, fit: true, count:0, onSetupItem: "setupItem", 
 				components: [
-					{name: "item", style:'height:30px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', components: [
-						{name: "age", style:'width:17%; float:left; font-size:1.5em'},
-						{name: "name", style:'width:80%; float:left; font-size:1.5em'},
-						{kind: "onyx.Button", content: "X", name:'btnDelete', ontap:'btnDeleteTapped',style:'width:3%; float:left;'}
-
-					]}
+					{name: "item", style:'height:50px;padding:15px;border:1px solid #f3f3f3;', ontap:'listItemTapped', layoutKind: "FittableColumnsLayout", 
+							components: [
+								{name: "age", style:'font-size:1.5em;float:left;width:20%'},
+								{name: "name", style:'font-size:1.5em;float:left;width:70%' },
+								{kind: "onyx.Button", content: "X", style:'width:10%;text-align:center;height:30px;float:left;', name:'btnDelete', ontap:'btnDeleteTapped'}
+							]
+					}
 				]
 		},	 
 	],
